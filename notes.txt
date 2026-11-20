@@ -1,0 +1,171 @@
+Next.js=>
+--------------
+-Next.js is a React-based framework used to build full-stack web applications. It provides routing, server-side rendering,
+ API handling, caching, and other features on top of React.
+->
+React	                                    Next.js
+---------------------------------------------------------------------
+UI library	                                Full-stack React framework
+Routing requires external libraries	        Built-in file-based routing
+Client-side rendering                       by default in typical SPA setups	Supports SSR, SSG, and CSR
+API requires a separate backend	            API endpoints through Route Handlers
+SEO requires additional configuration	    Built-in metadata and rendering support
+Manual configuration often required	Many    configurations are built in
+
+->Why use Next.js?
+- Better SEO capabilities.
+- Server-side rendering.
+- Automatic routing.
+- Image optimization.
+- Backend API development.
+- Improved application architecture.
+
+
+->Project scaffolding :
+    npx create-next-app@latest app-name
+
+->Project directory:
+    >app       - main source folder
+    >node_modules - folder that holds nodejs package copies for development
+    >public     - for public files,which can be used without importing in components
+    -.gitignore - file to configure which files/folders should be ignored from git push operation
+    -Agents.md  - mark down file which documents project for ai agents
+    -eslint.config.mjs - file for implimenting real-time error detectioon in code
+    -next-env.d.ts - it helps typescript to understand nextjs specific types and feature
+    -next.config.ts - nextjs configuration file
+    -package-lock.json - node_module's detailed config file
+    -package.json - config file for node based project
+    -README.md - documentation file for users/developers
+    -tsconfig.json - typescript configuration file
+
+=>Typescript:-
+------------------
+-typescript is a language which developed for rectifying limitation of js
+-typescript is basically js, with few additional features
+    TS=JS+additional features
+->Additional Features:
+    1.static typing
+    2.type checking
+    3.language services
+    4.interfaces
+    etc
+
+Feature 	        JavaScript  	    TypeScript
+Typing	            Dynamic	Static      type checking
+Type annotations	No	                Yes
+Interfaces	        No	                Yes
+Compile-time checking	No	            Yes
+Browser execution	Directly	        Compiled to JavaScript
+Error detection	    Mostly runtime	    Development-time and runtime
+
+file.ts -> file.js -> output
+
+->Datatypes:
+    1.number = let a:number=12
+    2.string = let a:string="apple"
+    3.Boolean
+    4.Array = let a:number[]=[1,3,34,5] / let a:Array<string>=["aji","sinu"]
+    5.Tuple = let user:[string,number]=["John",25]
+    6.Any   = let a:any=12,let a:any="apple"
+    7.Enum  = a class like feature for defining a set of named constants
+        enum direction{Up,Down,Left,Right} 
+        enum StatusCode {
+            OK=200,
+            BadRequest=400,
+            Unauthorized,
+            Forbidden
+        }
+
+->Interface in TypeScript
+An interface in TypeScript is a way to define the structure or shape of an object.
+
+It specifies:
+- What properties an object should have.
+- What data types those properties should contain.
+- Which properties are optional or readonly.
+- What methods an object should implement.
+Think of an interface as a blueprint for an object.
+
+
+=>Next.js File based Routing : nextjs uses file based routing concept
+-for dynamic routing we create an inner folder
+    >users
+        >[id]
+            -page.tsx  // works with url - localhost:3000/users/id
+        -page.tsx // works with url = localhost:3000/users
+
+->Layout.tsx : component to share UI on every components
+->Link : Link component from next is used as hyper link for page components
+->Reusable components
+->Types of Components:
+    1.Server Component(Default) : runs on server. it can use async-await ,DB queries,backend
+        logic,secret keys etc
+    2.Client Component : use "use client" in component. it can run on browser. used for :hooks,
+        event handling,browser apis etc
+    ->Combining both : server component can import client component , but vise versa is not possible
+
+->Styling Methods :
+    -css module file
+    -tailwind css
+
+->API routes in Backend: create api folder in app folder.inside api folder create another folder
+    for client requests where create 'routes.ts' file to define logic to solve api call
+
+->Image optimization : use Next.js Image component, it helps in lazy loading
+
+->Rendering Methods in NextJS
+    - SSR : Server Side Rendering - rendered on each requests
+        - client request -> server generates HTML ->Browser Recieves ready HTML
+        - Hydration in SSR : is the process of attching JavaScript functionalities and event
+            handlers to the HTML already rendered by the server
+    - SSG : Static Site Generation - Generated at build time
+    - CSR : Client Side Rendering - rendered on browser
+
+->SEO implimentation : can be done by placing meta data in page components
+
+
+=>NextAuth.js:-
+-----------------
+-NextAuth.js is an authentication library used in Next.js applications to implement
+ user authentication and session management.
+->It helps you implement features such as:
+- User login and logout.
+- Google and GitHub authentication.
+- Email/password authentication.
+- Session management.
+- JWT-based authentication.
+- Protected routes and pages.
+- Role-based access control (Admin, User, etc.).
+
+-The package is now part of the Auth.js project. For Next.js, the package is called next-auth.
+
+-to install : npm install next-auth
+
+-Main features:
+    -authentication using : Google,Github,Facebook,Credentials Login etc
+
+    -basic folder structure (App Router)
+
+    app
+        >api
+            >auth
+                >[...nextauth]
+                    -route.ts
+    
+    -next-auth working
+        1.user clicking login btn using email/password form
+        2.request goes to 'authentication provider' of next-auth
+        3.authentication provider used to verify user.
+        4.If authentication provider return true, then session/JWT is created
+        5.session should be stored in client part depending on the strategy. JWT stored in 
+        browser cookie,db session in sdb
+        6.Access user data anywhere using hooks/function
+
+        Front End UI --> SignIN() --> nextAuth API route --> Provider authentication -->
+        session/JWT created --> protected page access
+    -next-auth important function
+        1.signIn() : login
+        2.signOut() : logout
+        3.useSession() : client component can access session
+        4.getServerSession() : server component can access session
+        5.SessionProvider : Global auth state

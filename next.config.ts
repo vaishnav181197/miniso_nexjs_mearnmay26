@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  // images:{
+  //   remotePatterns:[
+  //     {hostname:'thumbs.dreamstime.com'}
+  //   ]
+  // }
 };
 
 export default nextConfig;
